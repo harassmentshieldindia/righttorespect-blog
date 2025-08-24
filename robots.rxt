@@ -1,0 +1,15 @@
+# robots.txt for righttorespect.in
+# Allow all search engines to crawl all content
+User-agent: *
+Allow: /
+
+# Sitemap location (add this once you create a sitemap)
+Sitemap: https://righttorespect.in/sitemap.xml
+
+# Optional: Block crawling of specific directories if needed
+# Disallow: /private/
+# Disallow: /admin/
+# Disallow: /temp/
+
+# Optional: Crawl delay (time in seconds between requests)
+# Crawl-delay: 1
