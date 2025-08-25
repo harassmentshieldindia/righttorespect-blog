@@ -1,0 +1,43 @@
+title: "Right to Respect Blog"
+description: "Exposing loan recovery agency harassment and providing resources for victims"
+url: "https://rightorespect.blog"
+baseurl: ""
+
+author:
+  name: "Harassment Shield India"
+  email: "contact@righttorespect.info"
+
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+collections:
+  posts:
+    output: true
+
+google_analytics: G-XXXXXXXXXX # Replace with your GA ID
+
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Blog"
+    url: "/blog/"
+  - title: "Tools"
+    url: "https://righttorespect.info"
+    external: true
+  - title: "Contact"
+    url: "/contact/"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
