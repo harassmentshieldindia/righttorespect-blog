@@ -30,7 +30,7 @@ I presented this in writing, along with bank statements proving my financial sit
 
 ## The Complaint That Changed Everything
 
-One agency crossed every line imaginable. I filed detailed complaints with the Consumer Financial Protection Bureau and my state's attorney general's office. Within 30 days, that agency was not only off my case but facing regulatory scrutiny.
+One agency crossed every line imaginable. I filed detailed complaints with the cyber cell  and to RBI ombudsman along with the company's internal grievance. Within 30 days, that agency was not only off my case but facing regulatory scrutiny.
 
 Word travels fast in the recovery industry. Other agencies handling my accounts suddenly became remarkably professional.
 
