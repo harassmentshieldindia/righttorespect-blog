@@ -5,7 +5,7 @@ baseurl: ""
 
 author:
   name: "Harassment Shield India"
-  email: "contact@righttorespect.info"
+  email: "help@righttorespect.info"
 
 markdown: kramdown
 highlighter: rouge
