@@ -6,8 +6,8 @@ description: >-
   resources for victims. Know your rights and protect yourself 
   from illegal debt collection practices.
 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://righttorespect.in" # the base hostname & protocol for your site
+baseurl: ""
+url: "https://righttorespect.in"
 
 # Build settings
 markdown: kramdown
@@ -27,51 +27,6 @@ permalink: /:year/:month/:day/:title/
 paginate: 5
 paginate_path: "/page:num/"
 
-# Social media and contact
+# Social media
 twitter_username: your_twitter_handle
 github_username: harassmentshieldindia
-
-# Navigation menu (optional)
-header_pages:
-  - about.md
-  - contact.md
-
-# SEO settings
-google_analytics: # Add your Google Analytics ID here if you have one
-
-# Exclude files from processing
-exclude:
-  - .sass-cache/
-  - .jekyll-cache/
-  - gemfiles/
-  - Gemfile
-  - Gemfile.lock
-  - node_modules/
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-
-# Include files in processing
-include:
-  - _pages
-
-# Collections (if you want to organize content beyond posts)
-collections:
-  guides:
-    output: true
-    permalink: /:collection/:name/
-
-# Default layouts for different content types
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      comments: true
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
