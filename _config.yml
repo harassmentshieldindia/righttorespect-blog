@@ -1,47 +1,25 @@
 # Site settings
-title: Your Legal Finance Site
-email: your-email@example.com
-description: Comprehensive legal and financial guidance
-baseurl: "" # Leave empty for root domain
-url: "https://yourdomain.com"
+title: Right to Respect
+description: Combating harassment and protecting rights in India
+baseurl: ""
+url: "https://righttorespect.in"
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-theme: minima
+# Pagination settings - REMOVE LIMITS
+paginate: 999  # Shows 999 posts per page (unlimited)
+paginate_path: "/page:num/"
 
 # Plugins
 plugins:
-  - jekyll-feed
+  - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Multi-language support
-languages: ["en", "hi"]
-default_lang: "en"
+  - jekyll-feed
 
 # Collections
 collections:
   posts:
     output: true
-    permalink: /:categories/:year/:month/:day/:title:output_ext
+    permalink: /:categories/:year/:month/:day/:title/
 
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      author: "Your Name"
-
-# Sass
-sass:
-  style: compressed
-
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
+# Build settings
+markdown: kramdown
+highlighter: rouge
