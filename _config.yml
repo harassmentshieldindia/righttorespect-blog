@@ -1,13 +1,9 @@
 # Site settings
-title: Right to Respect
+title: Your Legal Finance Site
 email: your-email@example.com
-description: >-
-  Website exposing loan recovery agency harassment and providing 
-  resources for victims. Know your rights and protect yourself 
-  from illegal debt collection practices.
-
-baseurl: ""
-url: "https://righttorespect.in"
+description: Comprehensive legal and financial guidance
+baseurl: "" # Leave empty for root domain
+url: "https://yourdomain.com"
 
 # Build settings
 markdown: kramdown
@@ -20,13 +16,32 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# Permalink structure
-permalink: /:year/:month/:day/:title/
+# Multi-language support
+languages: ["en", "hi"]
+default_lang: "en"
 
-# Pagination
-paginate: 5
-paginate_path: "/page:num/"
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title:output_ext
 
-# Social media
-twitter_username: your_twitter_handle
-github_username: harassmentshieldindia
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Your Name"
+
+# Sass
+sass:
+  style: compressed
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
