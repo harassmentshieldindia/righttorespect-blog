@@ -1,202 +1,655 @@
----
-layout: default
----
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right to Respect - Combating Harassment in India</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<div class="hero-section">
-    <h1>Right to Respect</h1>
-    <p>Combating harassment and protecting rights in India</p>
-    <a href="/services/" class="cta-button">Our Services</a>
-</div>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
 
-<div class="content-sections">
-    <section class="intro">
-        <h2>Protecting Your Rights</h2>
-        <p>We provide comprehensive support for harassment victims and educate about legal rights in India.</p>
-    </section>
-    
-    <!-- Blog Posts Section with Pagination -->
-    <section class="blog-posts">
-        <h2>All Blog Posts</h2>
-        
-        <!-- If pagination is not working, show all posts -->
-        {% if paginator.posts %}
-            {% for post in paginator.posts %}
-            <article class="post-preview">
-                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-                <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-                <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                <a href="{{ post.url | relative_url }}">Read more →</a>
-            </article>
-            {% endfor %}
-        {% else %}
-            <!-- Fallback: Show all posts if pagination fails -->
-            {% for post in site.posts %}
-            <article class="post-preview">
-                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-                <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-                <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                <a href="{{ post.url | relative_url }}">Read more →</a>
-            </article>
-            {% endfor %}
-        {% endif %}
-        
-        <!-- Pagination Navigation -->
-        {% if paginator.total_pages > 1 %}
-        <div class="pagination">
-            {% if paginator.previous_page %}
-                <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn">← Previous</a>
-            {% endif %}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .nav {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-height: 600px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Blog Posts */
+        .blog-post {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .post-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .post-title:hover {
+            color: #667eea;
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .post-category {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .post-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+        }
+
+        /* Pagination */
+        .pagination {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .page-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .page-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .page-btn.current {
+            background: #764ba2;
+            font-weight: bold;
+        }
+
+        /* Admin Panel (Hidden by default) */
+        .admin-panel {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .admin-input, .admin-textarea {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .admin-textarea {
+            height: 200px;
+            resize: vertical;
+        }
+
+        .admin-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .admin-btn:hover {
+            background: #219a52;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+                margin: 10px;
+            }
             
-            <!-- Page numbers -->
-            <div class="page-numbers">
-                {% for page in (1..paginator.total_pages) %}
-                    {% if page == paginator.page %}
-                        <span class="current-page">{{ page }}</span>
-                    {% elsif page == 1 %}
-                        <a href="{{ '/' | relative_url }}">{{ page }}</a>
-                    {% else %}
-                        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
+            .header h1 {
+                font-size: 2rem;
+            }
             
-            {% if paginator.next_page %}
-                <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn">Next →</a>
-            {% endif %}
+            .post-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        /* Categories Filter */
+        .categories {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 6px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #667eea;
+        }
+
+        .category-tag:hover, .category-tag.active {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Right to Respect</h1>
+            <p>Combating harassment and protecting rights in India</p>
         </div>
-        
-        <p class="pagination-info">
-            Page {{ paginator.page }} of {{ paginator.total_pages }} 
-            ({{ paginator.total_posts }} total posts)
-        </p>
-        {% endif %}
-        
-        <!-- Total posts counter -->
-        <p class="total-posts">Total Posts: {{ site.posts.size }}</p>
-    </section>
-    
-    <section class="services-preview">
-        <h2>How We Help</h2>
-        <div class="service-cards">
-            <div class="card">
-                <h3>Legal Guidance</h3>
-                <p>Understanding your rights under Indian law</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" onclick="showSection('blog')">Blog</button>
+            <button class="nav-btn" onclick="showSection('about')">About</button>
+            <button class="nav-btn" onclick="showSection('services')">Services</button>
+            <button class="nav-btn" onclick="showSection('contact')">Contact</button>
+            <button class="nav-btn" onclick="toggleAdmin()">+ Add Post</button>
+        </nav>
+
+        <div class="main-content">
+            <!-- Admin Panel -->
+            <div class="admin-panel" id="adminPanel">
+                <h3>Add New Blog Post</h3>
+                <form class="admin-form" onsubmit="addPost(event)">
+                    <input type="text" class="admin-input" placeholder="Post Title" id="postTitle" required>
+                    <input type="text" class="admin-input" placeholder="Categories (comma-separated)" id="postCategories">
+                    <textarea class="admin-textarea" placeholder="Post Content (HTML allowed)" id="postContent" required></textarea>
+                    <button type="submit" class="admin-btn">Publish Post</button>
+                </form>
             </div>
-            <div class="card">
-                <h3>Support Resources</h3>
-                <p>Emotional and practical support during difficult times</p>
+
+            <!-- Blog Section -->
+            <div id="blogSection">
+                <!-- Search -->
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search posts..." onkeyup="searchPosts()" id="searchBox">
+                </div>
+
+                <!-- Categories Filter -->
+                <div class="categories" id="categoriesFilter">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+
+                <!-- Blog Posts -->
+                <div id="blogPosts">
+                    <!-- Posts will be populated by JavaScript -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Other Sections -->
+            <div id="aboutSection" style="display: none;">
+                <h2>About Right to Respect</h2>
+                <p>We provide comprehensive support for harassment victims and educate about legal rights in India. Our mission is to create a safer society where everyone can live with dignity and respect.</p>
+                
+                <h3>Our Mission</h3>
+                <p>To combat harassment in all its forms and empower individuals with knowledge of their legal rights and available support systems.</p>
+                
+                <h3>What We Do</h3>
+                <ul>
+                    <li>Provide legal guidance and support</li>
+                    <li>Educational content about rights and laws</li>
+                    <li>Connect victims with appropriate resources</li>
+                    <li>Raise awareness about harassment issues</li>
+                </ul>
+            </div>
+
+            <div id="servicesSection" style="display: none;">
+                <h2>Our Services</h2>
+                <div style="display: grid; gap: 20px; margin-top: 30px;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h3>Legal Support</h3>
+                        <p>Guidance on legal procedures, rights, and available remedies under Indian law.</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h3>Educational Resources</h3>
+                        <p>Comprehensive information about harassment laws, prevention, and support systems.</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h3>Support Network</h3>
+                        <p>Connecting individuals with appropriate support services and organizations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contactSection" style="display: none;">
+                <h2>Contact Us</h2>
+                <p>Get in touch for support, questions, or to learn more about our services.</p>
+                
+                <div style="margin-top: 30px;">
+                    <h3>Email</h3>
+                    <p>contact@righttorespect.in</p>
+                    
+                    <h3 style="margin-top: 20px;">Support Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+                    
+                    <h3 style="margin-top: 20px;">Emergency Support</h3>
+                    <p>For urgent situations, please contact local authorities or emergency services.</p>
+                </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
 
-<style>
-.post-preview {
-    border-bottom: 1px solid #eee;
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
+    <script>
+        // Blog posts data - you can easily add new posts here
+        let blogPosts = [
+            {
+                id: 1,
+                title: "Understanding Your Rights Against Workplace Harassment",
+                date: "2025-08-29",
+                categories: ["workplace", "legal", "rights"],
+                excerpt: "Every employee in India has fundamental rights against harassment in the workplace. Understanding these rights is the first step toward protection and seeking justice.",
+                content: "Full content of your blog post goes here. You can include HTML tags for formatting."
+            },
+            {
+                id: 2,
+                title: "Digital Harassment: Laws and Legal Remedies",
+                date: "2025-08-28",
+                categories: ["digital", "cyber", "legal"],
+                excerpt: "With the rise of digital platforms, online harassment has become a serious concern. Learn about the legal frameworks that protect you in the digital space.",
+                content: "Full content about digital harassment laws..."
+            },
+            {
+                id: 3,
+                title: "How to Document Evidence of Harassment",
+                date: "2025-08-27",
+                categories: ["evidence", "legal", "guide"],
+                excerpt: "Proper documentation is crucial for any legal action. This guide explains what evidence to collect and how to preserve it effectively.",
+                content: "Detailed guide on evidence documentation..."
+            },
+            {
+                id: 4,
+                title: "Support Systems: Where to Seek Help",
+                date: "2025-08-26",
+                categories: ["support", "resources", "help"],
+                excerpt: "You're not alone. Discover the various support systems, helplines, and organizations available to help harassment victims in India.",
+                content: "Comprehensive list of support systems..."
+            },
+            {
+                id: 5,
+                title: "The Psychology of Harassment: Understanding Impact",
+                date: "2025-08-25",
+                categories: ["psychology", "impact", "awareness"],
+                excerpt: "Understanding the psychological impact of harassment helps both victims and supporters respond appropriately and seek proper help.",
+                content: "Article about psychological impacts..."
+            },
+            {
+                id: 6,
+                title: "Legal Procedures: Filing a Complaint Step by Step",
+                date: "2025-08-24",
+                categories: ["legal", "procedure", "complaint"],
+                excerpt: "A detailed walkthrough of the legal process for filing harassment complaints, including timelines and required documentation.",
+                content: "Step-by-step legal procedure guide..."
+            }
+        ];
 
-.post-preview h3 a {
-    text-decoration: none;
-    color: #333;
-}
+        // Pagination settings
+        const postsPerPage = 5;
+        let currentPage = 1;
+        let filteredPosts = [...blogPosts];
+        let activeCategory = 'all';
 
-.post-preview h3 a:hover {
-    color: #007cba;
-}
+        // Initialize the blog
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('blog');
+            updateCategories();
+            displayPosts();
+        });
 
-.post-meta {
-    color: #666;
-    font-size: 0.9em;
-    margin: 5px 0;
-}
+        // Section navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('[id$="Section"]').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            if (sectionName === 'blog') {
+                document.getElementById('blogSection').style.display = 'block';
+            } else {
+                document.getElementById(sectionName + 'Section').style.display = 'block';
+            }
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
 
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin: 40px 0;
-    padding: 20px;
-    border-top: 2px solid #eee;
-}
+        // Toggle admin panel
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
 
-.pagination-btn {
-    background: #007cba;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
+        // Add new post
+        function addPost(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('postTitle').value;
+            const categories = document.getElementById('postCategories').value.split(',').map(cat => cat.trim());
+            const content = document.getElementById('postContent').value;
+            
+            const newPost = {
+                id: blogPosts.length + 1,
+                title: title,
+                date: new Date().toISOString().split('T')[0],
+                categories: categories,
+                excerpt: content.substring(0, 200) + "...",
+                content: content
+            };
+            
+            blogPosts.unshift(newPost); // Add to beginning
+            filteredPosts = [...blogPosts];
+            currentPage = 1;
+            
+            // Reset form
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postCategories').value = '';
+            document.getElementById('postContent').value = '';
+            
+            // Update display
+            updateCategories();
+            displayPosts();
+            toggleAdmin();
+            
+            alert('Post published successfully!');
+        }
 
-.pagination-btn:hover {
-    background: #005a87;
-}
+        // Update categories filter
+        function updateCategories() {
+            const categories = ['all'];
+            blogPosts.forEach(post => {
+                post.categories.forEach(cat => {
+                    if (!categories.includes(cat)) {
+                        categories.push(cat);
+                    }
+                });
+            });
+            
+            const categoriesHtml = categories.map(cat => 
+                `<span class="category-tag ${cat === activeCategory ? 'active' : ''}" onclick="filterByCategory('${cat}')">${cat}</span>`
+            ).join('');
+            
+            document.getElementById('categoriesFilter').innerHTML = categoriesHtml;
+        }
 
-.page-numbers {
-    display: flex;
-    gap: 10px;
-}
+        // Filter by category
+        function filterByCategory(category) {
+            activeCategory = category;
+            
+            if (category === 'all') {
+                filteredPosts = [...blogPosts];
+            } else {
+                filteredPosts = blogPosts.filter(post => post.categories.includes(category));
+            }
+            
+            currentPage = 1;
+            updateCategories();
+            displayPosts();
+        }
 
-.page-numbers a, .current-page {
-    padding: 8px 12px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
+        // Search posts
+        function searchPosts() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredPosts = activeCategory === 'all' ? [...blogPosts] : blogPosts.filter(post => post.categories.includes(activeCategory));
+            } else {
+                let searchBase = activeCategory === 'all' ? blogPosts : blogPosts.filter(post => post.categories.includes(activeCategory));
+                filteredPosts = searchBase.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) ||
+                    post.excerpt.toLowerCase().includes(searchTerm) ||
+                    post.categories.some(cat => cat.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            currentPage = 1;
+            displayPosts();
+        }
 
-.current-page {
-    background: #007cba;
-    color: white;
-    border-color: #007cba;
-}
+        // Display posts with pagination
+        function displayPosts() {
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const currentPosts = filteredPosts.slice(startIndex, endIndex);
+            
+            const postsHtml = currentPosts.map(post => `
+                <article class="blog-post">
+                    <h2 class="post-title" onclick="readFullPost(${post.id})">${post.title}</h2>
+                    <div class="post-meta">
+                        <span>📅 ${formatDate(post.date)}</span>
+                        <div>
+                            ${post.categories.map(cat => `<span class="post-category">${cat}</span>`).join('')}
+                        </div>
+                    </div>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <a href="#" class="read-more" onclick="readFullPost(${post.id})">Read More →</a>
+                </article>
+            `).join('');
+            
+            document.getElementById('blogPosts').innerHTML = postsHtml || '<p style="text-align: center; color: #666;">No posts found.</p>';
+            
+            updatePagination();
+        }
 
-.page-numbers a:hover {
-    background: #f5f5f5;
-}
+        // Format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
 
-.pagination-info {
-    text-align: center;
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 10px;
-}
+        // Update pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            
+            if (totalPages <= 1) {
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            
+            let paginationHtml = '';
+            
+            // Previous button
+            paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Previous</button>`;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    paginationHtml += `<button class="page-btn current">${i}</button>`;
+                } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+                    paginationHtml += `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+                } else if (Math.abs(i - currentPage) === 3) {
+                    paginationHtml += `<span>...</span>`;
+                }
+            }
+            
+            // Next button
+            paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+            
+            document.getElementById('pagination').innerHTML = paginationHtml;
+        }
 
-.hero-section {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    margin-bottom: 40px;
-}
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            displayPosts();
+            
+            // Smooth scroll to top
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+        }
 
-.cta-button {
-    background: white;
-    color: #667eea;
-    padding: 12px 30px;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    margin-top: 20px;
-    display: inline-block;
-}
-
-.service-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.card {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-}
-</style>
+        // Read full post (you can expand this to show full content)
+        function readFullPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (post) {
+                // For now, show an alert. You can create a full post view later
+                alert(`Opening: ${post.title}\n\nIn a full implementation, this would show the complete post content in a new page or modal.`);
+                
+                // You could also create individual post pages like:
+                // window.location.href = `posts/${post.id}.html`;
+            }
+        }
+    </script>
+</body>
+</html>
