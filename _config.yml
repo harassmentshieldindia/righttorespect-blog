@@ -1,46 +1,18 @@
-# Site settings
 title: Right to Respect
 email: contact@righttorespect.in
-description: >- # this means to ignore newlines until "baseurl:"
+description: >-
   Combating harassment and protecting rights in India
-baseurl: "/righttorespect-blog" # the subpath of your site, e.g. /blog
-url: "https://harassmentshieldindia.github.io" # the base hostname & protocol for your site
+baseurl: "/righttorespect-blog"
+url: "https://harassmentshieldindia.github.io"
+theme: minima
 
 # Build settings
-markdown: kramdown
-theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
-# Pagination settings
-paginate: 5
-paginate_path: "/page:num/"
-
-# SEO settings  
-author: "Right to Respect Team"
-
-# Excerpt settings
-excerpt_separator: <!--more-->
-
-# Show future posts (if you have scheduled posts)
-future: true
-
-# Social media (optional - add your actual handles)
-twitter:
-  username: your_twitter_handle
-social:
-  name: Right to Respect
-  links:
-    - https://twitter.com/your_handle
-    - https://facebook.com/your_page
-
-# Exclude files from processing
+# Optional: Exclude files from processing
 exclude:
-  - README.md
   - Gemfile
   - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+  - README.md
