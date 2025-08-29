@@ -1,0 +1,19 @@
+en:
+  site_title: "Right to Respect"
+  nav_home: "Home"
+  nav_about: "About"
+  nav_services: "Services" 
+  nav_resources: "Resources"
+  nav_contact: "Contact"
+  read_more: "Read More"
+  contact_us: "Contact Us"
+
+hi:
+  site_title: "सम्मान का अधिकार"
+  nav_home: "मुख्य"
+  nav_about: "हमारे बारे में"
+  nav_services: "सेवाएं"
+  nav_resources: "संसाधन"
+  nav_contact: "संपर्क"
+  read_more: "और पढ़ें"
+  contact_us: "संपर्क करें"
