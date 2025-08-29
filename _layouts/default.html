@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.default_lang }}">
+<html lang="{{ page.lang | default: 'en' }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title | escape }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
-    
-    <!-- Preserve your existing CSS -->
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-    
-    <!-- Your custom styles -->
-    {% if page.custom_css %}
-        {% for stylesheet in page.custom_css %}
-            <link rel="stylesheet" href="{{ stylesheet | relative_url }}">
-        {% endfor %}
-    {% endif %}
-    
-    <!-- SEO -->
-    {% seo %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="{{ page.body_class }}">
-    {% include header.html %}
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>{{ site.data.lang[page.lang].site_title | default: site.title }}</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/">{{ site.data.lang[page.lang].nav_home | default: "Home" }}</a>
+                    <a href="/about/">{{ site.data.lang[page.lang].nav_about | default: "About" }}</a>
+                    <a href="/services/">{{ site.data.lang[page.lang].nav_services | default: "Services" }}</a>
+                    <a href="/resources/">{{ site.data.lang[page.lang].nav_resources | default: "Resources" }}</a>
+                    <a href="/contact/">{{ site.data.lang[page.lang].nav_contact | default: "Contact" }}</a>
+                    
+                    <!-- Language Switcher -->
+                    <div class="lang-switcher">
+                        <a href="{{ page.url }}" class="lang-btn">EN</a>
+                        <a href="/hi{{ page.url }}" class="lang-btn">हि</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
     
-    <main class="page-content" aria-label="Content">
-        <div class="wrapper">
-            {{ content }}
-        </div>
+    <main>
+        {{ content }}
     </main>
     
-    {% include footer.html %}
-    
-    <!-- Your custom JS -->
-    {% if page.custom_js %}
-        {% for js_file in page.custom_js %}
-            <script src="{{ js_file | relative_url }}"></script>
-        {% endfor %}
-    {% endif %}
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Right to Respect. All rights reserved.</p>
+            <p>{{ site.data.lang[page.lang].contact_us | default: "Contact Us" }}: support@righttorespect.in</p>
+        </div>
+    </footer>
 </body>
 </html>
