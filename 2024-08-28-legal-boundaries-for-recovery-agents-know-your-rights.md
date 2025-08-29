@@ -1,6 +1,6 @@
 ---
 title: "Legal Boundaries for Recovery Agents: Know Your Rights"
-date: 2024-05-19 00:00:00 +0530
+date: 2024-08-28 00:00:00 +0530
 categories: [finance, law, india]
 tags: [recovery-agents, debt-collection, rbi-guidelines, consumer-protection, ipc, indian-contract-act]
 ---
