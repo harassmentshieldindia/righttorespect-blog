@@ -23,3 +23,28 @@ collections:
 # Build settings
 markdown: kramdown
 highlighter: rouge
+# Pagination settings
+paginate: 8  # Show 8 posts per page
+paginate_path: "/page:num/"
+
+# Plugins (GitHub Pages compatible)
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Excerpt settings
+excerpt_separator: <!--more-->
+
+# Show future posts (if you have scheduled posts)
+future: true
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
