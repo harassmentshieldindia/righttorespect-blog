@@ -1,44 +1,39 @@
 ---
 layout: default
 ---
-<article>
-    <header>
-        <h1>{{ page.title }}</h1>
-        <p><strong>Published:</strong> {{ page.date | date: "%B %d, %Y" }}</p>
-        {% if page.tags %}
-        <p><strong>Tags:</strong> 
-        {% for tag in page.tags %}
-            <span style="background: #f0f0f0; padding: 2px 8px; margin: 2px; border-radius: 3px;">{{ tag }}</span>
-        {% endfor %}
-        </p>
-        {% endif %}
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+        
+        <div class="post-meta">
+            <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                {{ page.date | date: "%B %d, %Y" }}
+            </time>
+            
+            {% if page.categories.size > 0 %}
+                <span class="post-categories">
+                    {% for category in page.categories %}
+                        <span class="category">{{ category }}</span>
+                    {% endfor %}
+                </span>
+            {% endif %}
+            
+            {% if page.lang %}
+                <span class="post-lang">{{ page.lang | upcase }}</span>
+            {% endif %}
+        </div>
     </header>
 
-    <div>
+    <div class="post-content e-content" itemprop="articleBody">
         {{ content }}
     </div>
 
-    <hr style="margin: 40px 0;">
-    
-    <div style="background: #f9f9f9; padding: 20px; border-left: 4px solid #e74c3c;">
-        <h3>🚨 Need Immediate Help?</h3>
-        <p>Don't suffer in silence! Use our tools to take action:</p>
-        <ul>
-            <li><a href="https://righttorespect.info/complaint-generator" target="_blank"><strong>Generate Legal Complaint</strong></a> - Create professional legal notices</li>
-            <li><a href="https://righttorespect.info/rbi-complaint" target="_blank"><strong>File RBI Complaint</strong></a> - Report harassment to authorities</li>
-            <li><a href="https://righttorespect.info/templates" target="_blank"><strong>Download Templates</strong></a> - Legal document templates</li>
-        </ul>
-    </div>
-
-    {% if page.previous.url or page.next.url %}
-    <nav style="margin-top: 30px;">
-        {% if page.previous.url %}
-            <a href="{{ page.previous.url | relative_url }}" style="float: left;">← {{ page.previous.title | truncate: 50 }}</a>
-        {% endif %}
-        {% if page.next.url %}
-            <a href="{{ page.next.url | relative_url }}" style="float: right;">{{ page.next.title | truncate: 50 }} →</a>
-        {% endif %}
-        <div style="clear: both;"></div>
-    </nav>
+    {% if page.tags.size > 0 %}
+        <div class="post-tags">
+            <strong>Tags:</strong>
+            {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
     {% endif %}
 </article>
