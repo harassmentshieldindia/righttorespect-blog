@@ -1,62 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ page.lang | default: site.default_lang }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <title>{% if page.title %}{{ page.title | escape }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    
+    <!-- Preserve your existing CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    
+    <!-- Your custom styles -->
+    {% if page.custom_css %}
+        {% for stylesheet in page.custom_css %}
+            <link rel="stylesheet" href="{{ stylesheet | relative_url }}">
+        {% endfor %}
+    {% endif %}
     
     <!-- SEO -->
-    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-    <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-    <meta property="og:url" content="{{ page.url | absolute_url }}">
-    <link rel="canonical" href="{{ page.url | absolute_url }}">
-    
-    <!-- CSS -->
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
-        header { background: #2c5aa0; color: white; padding: 20px; margin-bottom: 30px; border-radius: 5px; }
-        .nav-link { color: white; margin: 0 15px; text-decoration: none; }
-        .nav-link:hover { text-decoration: underline; }
-        .tools-banner { background: #e74c3c; color: white; padding: 15px; text-align: center; margin: 20px 0; border-radius: 5px; }
-        .tools-banner a { color: white; font-weight: bold; text-decoration: none; }
-        footer { background: #333; color: white; padding: 20px; margin-top: 40px; text-align: center; }
-    </style>
-    
-    <!-- Google Analytics -->
-    {% if site.google_analytics %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ site.google_analytics }}');
-    </script>
-    {% endif %}
+    {% seo %}
 </head>
-<body>
-    <header>
-        <h1><a href="{{ '/' | relative_url }}" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
-        <p>{{ site.description }}</p>
-        <nav>
-            {% for item in site.navigation %}
-            <a href="{% if item.external %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}" 
-               class="nav-link"{% if item.external %} target="_blank"{% endif %}>{{ item.title }}</a>
-            {% endfor %}
-        </nav>
-    </header>
-
-    <div class="tools-banner">
-        🛠️ Need immediate help? Visit our <a href="https://righttorespect.info" target="_blank">Tools & Resources Website</a> for complaint generators and legal templates!
-    </div>
-
-    <main>
-        {{ content }}
+<body class="{{ page.body_class }}">
+    {% include header.html %}
+    
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            {{ content }}
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. Fighting harassment together.</p>
-        <p><a href="https://righttorespect.info" target="_blank" style="color: #fff;">Tools Website</a> | <a href="/feed.xml" style="color: #fff;">RSS</a></p>
-    </footer>
+    
+    {% include footer.html %}
+    
+    <!-- Your custom JS -->
+    {% if page.custom_js %}
+        {% for js_file in page.custom_js %}
+            <script src="{{ js_file | relative_url }}"></script>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
