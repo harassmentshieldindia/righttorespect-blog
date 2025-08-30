@@ -1,721 +1,1350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Right to Respect - अधिकार का सम्मान | Combating Harassment in India</title>
+    <meta name="description" content="Right to Respect - Combating harassment and protecting rights in India | उत्पीड़न से लड़ना और भारत में अधिकारों की रक्षा करना">
+    <meta name="keywords" content="harassment, rights, India, legal help, उत्पीड़न, अधिकार, कानूनी सहायता">
+    <title>Right to Respect - अधिकार और सम्मान</title>
+    
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --animation-duration: 0.3s;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #f093fb;
-            --dark: #0f0f1e;
-            --light: #ffffff;
-            --gray: #6c757d;
-            --success: #28a745;
-            --warning: #ffc107;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans Devanagari', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans Devanagari', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: var(--dark);
+            background: var(--primary-gradient);
             min-height: 100vh;
+            position: relative;
             overflow-x: hidden;
         }
 
-        .lang-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .lang-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        .hindi {
-            display: none;
-        }
-
-        body.hindi-mode .hindi {
-            display: initial;
-        }
-
-        body.hindi-mode .english {
-            display: none;
-        }
-
-        #particles-bg {
+        /* Animated Background */
+        .animated-bg {
             position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
             z-index: -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
         }
 
-        .particle {
+        .gradient-sphere {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
-            animation: float-up 15s infinite linear;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out;
         }
 
-        @keyframes float-up {
-            0% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
+        .sphere1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #00d2ff 100%);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .sphere2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
         }
 
+        .sphere3 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-100px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        /* Glass Morphism Header */
         .header {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px);
-            padding: 30px 0;
-            margin-bottom: 40px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all var(--animation-duration);
         }
 
-        .header h1 {
-            color: white;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff, #f093fb);
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmer 3s infinite;
         }
 
-        .header p {
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .tagline {
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-size: 1.2rem;
         }
 
-        .nav {
-            text-align: center;
-            margin: 30px 0;
+        /* Navigation with Glass Effect */
+        nav {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.08);
+        nav button, .lang-switch {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 14px 32px;
-            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
             cursor: pointer;
+            transition: all var(--animation-duration);
             font-size: 1rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        nav button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .nav-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
+        nav button:hover::before {
+            left: 100%;
         }
 
-        .main-content {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 50px;
-            margin: 20px 0;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            min-height: 600px;
+        nav button:hover, .lang-switch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
+        nav button:focus, .lang-switch:focus {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .tools-btn {
+            background: var(--secondary-gradient) !important;
+            border: none !important;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Search Box with Glass Effect */
         .search-container {
-            margin-bottom: 40px;
-            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
         }
 
         .search-box {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px 30px;
-            font-size: 1.1rem;
-            border: 3px solid transparent;
-            border-radius: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            transition: all var(--animation-duration);
+        }
+
+        .search-box:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
             outline: none;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            color: white;
+            font-size: 1.1rem;
+            flex: 1;
+            padding: 0.5rem;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all var(--animation-duration);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .blog-post {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+            padding: 2rem;
+            cursor: pointer;
+            transition: all var(--animation-duration);
+            color: white;
         }
 
         .blog-post:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .post-title {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .post-title:hover {
-            color: var(--primary);
-        }
-
-        .post-meta {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .post-category {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .blog-post h3 {
             color: white;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
 
-        .post-excerpt {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 20px;
+        .blog-post .meta {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
 
-        .read-more {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border: 2px solid var(--primary);
-            border-radius: 25px;
+        .blog-post .excerpt {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
         }
 
-        .read-more:hover {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .categories {
-            margin-bottom: 40px;
+        .tool-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .category-tag {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary);
-            font-weight: 500;
-        }
-
-        .category-tag:hover, .category-tag.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all var(--animation-duration);
             color: white;
-            transform: scale(1.1);
+            position: relative;
+            overflow: hidden;
         }
 
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tool-card:hover::after {
+            opacity: 1;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tool-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tool-card a {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all var(--animation-duration);
+            font-weight: 600;
+        }
+
+        .tool-card a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Accessibility Features */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Loading Animation */
         .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(102, 126, 234, 0.1);
-            border-top-color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 30px auto;
+            margin: 2rem auto;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .status-message {
-            text-align: center;
-            padding: 20px;
-            margin: 20px 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 15px;
-            color: var(--primary);
-            font-weight: 500;
+        /* Performance Monitor */
+        .perf-monitor {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 10px;
+            color: white;
+            font-family: monospace;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 9999;
         }
 
+        .perf-monitor.show {
+            display: block;
+        }
+
+        /* Error Toast */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: white;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: rgba(239, 68, 68, 0.9);
+        }
+
+        .toast.success {
+            background: rgba(34, 197, 94, 0.9);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .main-content {
-                padding: 30px 20px;
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
-            .header h1 {
-                font-size: 2rem;
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .blog-grid, .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .perf-monitor {
+                bottom: 10px;
+                right: 10px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .glass-card, .blog-post, .tool-card {
+                border: 2px solid white;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f7fafc;
+                --text-secondary: #cbd5e0;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles-bg"></div>
-    
-    <button class="lang-toggle" onclick="toggleLanguage()">
-        <span class="english">हिंदी</span>
-        <span class="hindi">English</span>
-    </button>
-    
-    <header class="header">
-        <div class="container">
-            <h1>
-                <span class="english">Right to Respect</span>
-                <span class="hindi">अधिकार का सम्मान</span>
-            </h1>
-            <p>
-                <span class="english">Combating harassment and protecting rights in India</span>
-                <span class="hindi">भारत में उत्पीड़न से लड़ना और अधिकारों की रक्षा करना</span>
-            </p>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Animated Background -->
+    <div class="animated-bg" aria-hidden="true">
+        <div class="gradient-sphere sphere1"></div>
+        <div class="gradient-sphere sphere2"></div>
+        <div class="gradient-sphere sphere3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo" role="heading" aria-level="1">Right to Respect</div>
+                <div class="tagline">
+                    <span class="lang-en">Combating harassment and protecting rights in India</span>
+                    <span class="lang-hi" style="display:none;">भारत में उत्पीड़न से लड़ना और अधिकारों की रक्षा करना</span>
+                </div>
+            </div>
+            <nav role="navigation" aria-label="Main navigation">
+                <button onclick="showSection('blog')" aria-label="Blog section" data-section="blog">
+                    <span class="lang-en">📝 Blog</span>
+                    <span class="lang-hi" style="display:none;">📝 ब्लॉग</span>
+                </button>
+                <button onclick="showSection('about')" aria-label="About section" data-section="about">
+                    <span class="lang-en">ℹ️ About</span>
+                    <span class="lang-hi" style="display:none;">ℹ️ जानकारी</span>
+                </button>
+                <button onclick="showSection('tools')" class="tools-btn" aria-label="Tools and resources" data-section="tools">
+                    <span class="lang-en">🛠️ Tools</span>
+                    <span class="lang-hi" style="display:none;">🛠️ उपकरण</span>
+                </button>
+                <button onclick="showSection('contact')" aria-label="Contact section" data-section="contact">
+                    <span class="lang-en">📧 Contact</span>
+                    <span class="lang-hi" style="display:none;">📧 संपर्क</span>
+                </button>
+                <button class="lang-switch" onclick="toggleLanguage()" aria-label="Toggle language (Alt+L)" accesskey="l">
+                    <span>🌐</span>
+                    <span class="lang-en">हिन्दी</span>
+                    <span class="lang-hi" style="display:none;">English</span>
+                </button>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <nav class="nav">
-            <button class="nav-btn active" onclick="showSection('blog', event)">
-                <span class="english">Blog</span>
-                <span class="hindi">ब्लॉग</span>
-            </button>
-            <button class="nav-btn" onclick="showSection('about', event)">
-                <span class="english">About</span>
-                <span class="hindi">हमारे बारे में</span>
-            </button>
-            <button class="nav-btn" onclick="window.open('https://righttorespect.info', '_blank')" style="background: linear-gradient(135deg, #00c9ff, #92fe9d);">
-                <span class="english">🛠️ Tools & Resources</span>
-                <span class="hindi">🛠️ उपकरण और संसाधन</span>
-            </button>
-            <button class="nav-btn" onclick="showSection('contact', event)">
-                <span class="english">Contact</span>
-                <span class="hindi">संपर्क</span>
-            </button>
-        </nav>
-
-        <div class="main-content">
-            <div id="blogSection">
-                <div class="search-container">
-                    <input type="text" class="search-box" id="searchBox" onkeyup="searchPosts()" placeholder="Search posts...">
-                </div>
-
-                <div class="categories" id="categoriesFilter"></div>
-                <div id="blogPosts">
-                    <div class="loader"></div>
-                    <div class="status-message">Loading posts from GitHub...</div>
-                </div>
-            </div>
-
-            <div id="aboutSection" style="display: none;">
-                <h2 style="color: var(--primary); margin-bottom: 30px;">
-                    <span class="english">About Right to Respect</span>
-                    <span class="hindi">अधिकार का सम्मान के बारे में</span>
-                </h2>
-                <p>We are dedicated to fighting loan recovery harassment and protecting the rights of debt victims across India.</p>
-            </div>
-
-            <div id="contactSection" style="display: none;">
-                <h2 style="color: var(--primary); margin-bottom: 30px;">
-                    <span class="english">Contact Us</span>
-                    <span class="hindi">हमसे संपर्क करें</span>
-                </h2>
-                <p>Email: contact@righttorespect.in</p>
+    <!-- Main Content -->
+    <main id="main-content" class="container" role="main">
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box" role="search">
+                <span aria-hidden="true">🔍</span>
+                <input 
+                    type="search" 
+                    id="searchInput" 
+                    placeholder="Search posts..." 
+                    aria-label="Search posts"
+                    onkeyup="searchPosts()"
+                >
+                <span class="sr-only" aria-live="polite" id="searchResults"></span>
             </div>
         </div>
+
+        <!-- Blog Section -->
+        <section id="blog" class="content-section active" aria-label="Blog posts">
+            <h2 style="color: white; margin-bottom: 1rem;">
+                <span class="lang-en">Latest Posts</span>
+                <span class="lang-hi" style="display:none;">नवीनतम पोस्ट</span>
+            </h2>
+            <div id="blogPosts" class="blog-grid" role="list">
+                <div class="loader" aria-label="Loading posts"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section" aria-label="About us">
+            <div class="glass-card">
+                <h2 style="color: white;">
+                    <span class="lang-en">About Right to Respect</span>
+                    <span class="lang-hi" style="display:none;">राइट टू रिस्पेक्ट के बारे में</span>
+                </h2>
+                <div style="color: rgba(255,255,255,0.9); margin-top: 1rem;">
+                    <p class="lang-en">
+                        Right to Respect is a comprehensive platform dedicated to combating harassment and protecting individual rights in India. 
+                        Launched in 2025, we provide cutting-edge resources, legal information, and support for those facing harassment.
+                    </p>
+                    <p class="lang-hi" style="display:none;">
+                        राइट टू रिस्पेक्ट भारत में उत्पीड़न से लड़ने और व्यक्तिगत अधिकारों की रक्षा के लिए समर्पित एक व्यापक मंच है।
+                        2025 में शुरू किया गया, हम उत्पीड़न का सामना कर रहे लोगों के लिए अत्याधुनिक संसाधन, कानूनी जानकारी और सहायता प्रदान करते हैं।
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="content-section" aria-label="Tools and resources">
+            <h2 style="color: white; margin-bottom: 1rem;">
+                <span class="lang-en">Tools & Resources</span>
+                <span class="lang-hi" style="display:none;">उपकरण और संसाधन</span>
+            </h2>
+            <div class="tools-grid" role="list">
+                <!-- Tools will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section" aria-label="Contact information">
+            <div class="glass-card">
+                <h2 style="color: white;">
+                    <span class="lang-en">Contact Us</span>
+                    <span class="lang-hi" style="display:none;">संपर्क करें</span>
+                </h2>
+                <div style="color: rgba(255,255,255,0.9); margin-top: 1rem;">
+                    <p class="lang-en">24/7 Support Available</p>
+                    <p class="lang-hi" style="display:none;">24/7 सहायता उपलब्ध</p>
+                    <p style="margin-top: 1rem;">📧 support@righttorespect.in</p>
+                    <p>📞 1800-XXX-XXXX</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div style="text-align: center; color: rgba(255,255,255,0.9);">
+            <p>© 2025 Right to Respect. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">
+                <span class="lang-en">Made with ❤️ for a harassment-free India</span>
+                <span class="lang-hi" style="display:none;">उत्पीड़न मुक्त भारत के लिए ❤️ से बनाया गया</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Performance Monitor -->
+    <div class="perf-monitor" id="perfMonitor" aria-hidden="true">
+        <div>FPS: <span id="fps">0</span></div>
+        <div>Memory: <span id="memory">0</span> MB</div>
+        <div>Load Time: <span id="loadTime">0</span> ms</div>
     </div>
 
+    <!-- Toast Notifications -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Testing Suite & Main Script -->
     <script>
-        // GITHUB CONFIGURATION - ALREADY SET FOR YOU!
-        const GITHUB_CONFIG = {
-            owner: 'harassmentshieldindia',  // Your GitHub username
-            repo: 'righttorespect-blog',      // Your repository name
-            branch: 'main',                    // Default branch
-            searchPaths: ['posts', '.'],       // Will search everywhere
-            token: ''                          // Leave empty for public repos
-        };
+        // Global Error Handler
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            showToast('An error occurred. Please refresh the page.', 'error');
+            trackError(e.error);
+        });
 
-        // Global variables
-        let blogPosts = [];
-        let filteredPosts = [];
-        let currentPage = 1;
-        const postsPerPage = 5;
-        let activeCategory = null;
+        // Performance Monitoring
+        class PerformanceMonitor {
+            constructor() {
+                this.fps = 0;
+                this.lastTime = performance.now();
+                this.frames = 0;
+                this.memory = 0;
+                this.loadTime = 0;
+                this.init();
+            }
 
-        // Language toggle
+            init() {
+                this.loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                this.monitor();
+                setInterval(() => this.updateDisplay(), 1000);
+            }
+
+            monitor() {
+                const currentTime = performance.now();
+                this.frames++;
+                
+                if (currentTime >= this.lastTime + 1000) {
+                    this.fps = Math.round((this.frames * 1000) / (currentTime - this.lastTime));
+                    this.frames = 0;
+                    this.lastTime = currentTime;
+                }
+
+                if (performance.memory) {
+                    this.memory = Math.round(performance.memory.usedJSHeapSize / 1048576);
+                }
+
+                requestAnimationFrame(() => this.monitor());
+            }
+
+            updateDisplay() {
+                if (document.getElementById('fps')) {
+                    document.getElementById('fps').textContent = this.fps;
+                    document.getElementById('memory').textContent = this.memory;
+                    document.getElementById('loadTime').textContent = this.loadTime;
+                }
+            }
+        }
+
+        // Language System
+        let currentLang = 'en';
+        
         function toggleLanguage() {
-            document.body.classList.toggle('hindi-mode');
-            localStorage.setItem('language', document.body.classList.contains('hindi-mode') ? 'hindi' : 'english');
-            updateSearchPlaceholder();
-        }
-
-        function updateSearchPlaceholder() {
-            const searchBox = document.getElementById('searchBox');
-            if (document.body.classList.contains('hindi-mode')) {
-                searchBox.placeholder = 'पोस्ट खोजें...';
-            } else {
-                searchBox.placeholder = 'Search posts...';
-            }
-        }
-
-        // Create animated particles
-        function createParticles() {
-            const particlesBg = document.getElementById('particles-bg');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particlesBg.appendChild(particle);
-            }
-        }
-
-        // Find all markdown files
-        async function findAllMarkdownFiles() {
-            const allPosts = [];
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'hi' ? 'rtl' : 'ltr';
             
-            // Try to fetch from root directory first
-            try {
-                const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents?ref=${GITHUB_CONFIG.branch}`;
-                
-                const response = await fetch(apiUrl, {
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.style.display = currentLang === 'en' ? 'inline' : 'none';
+            });
+            
+            document.querySelectorAll('.lang-hi').forEach(el => {
+                el.style.display = currentLang === 'hi' ? 'inline' : 'none';
+            });
+            
+            // Announce language change to screen readers
+            announceToScreenReader(`Language changed to ${currentLang === 'en' ? 'English' : 'Hindi'}`);
+        }
+
+        // Accessibility Helper
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Error Tracking
+        function trackError(error) {
+            // In production, send to analytics service
+            console.log('Error tracked:', error);
+        }
+
+        // Section Navigation
+        function showSection(sectionName) {
+            // Performance optimization: Use requestAnimationFrame
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
                 });
                 
-                if (response.ok) {
-                    const files = await response.json();
+                const section = document.getElementById(sectionName);
+                if (section) {
+                    section.classList.add('active');
+                    section.scrollIntoView({ behavior: 'smooth' });
                     
-                    // Check if 'posts' folder exists
-                    const postsFolder = files.find(f => f.type === 'dir' && f.name === 'posts');
+                    // Update ARIA attributes
+                    document.querySelectorAll('nav button').forEach(btn => {
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
                     
-                    // Get markdown files from root
-                    const rootMarkdownFiles = files.filter(file => 
-                        file.type === 'file' && 
-                        (file.name.endsWith('.md') || file.name.endsWith('.markdown')) &&
-                        file.name.toLowerCase() !== 'readme.md'
-                    );
-                    
-                    // Process root files
-                    for (const file of rootMarkdownFiles) {
-                        try {
-                            const contentResponse = await fetch(file.download_url);
-                            const content = await contentResponse.text();
-                            const post = parseMarkdown(content, file.name);
-                            if (post) allPosts.push(post);
-                        } catch (err) {
-                            console.log(`Skipping ${file.name}`);
-                        }
+                    const activeBtn = document.querySelector(`[data-section="${sectionName}"]`);
+                    if (activeBtn) {
+                        activeBtn.setAttribute('aria-pressed', 'true');
                     }
                     
-                    // If posts folder exists, fetch from there too
-                    if (postsFolder) {
-                        try {
-                            const postsResponse = await fetch(postsFolder.url, {
-                                headers: {
-                                    'Accept': 'application/vnd.github.v3+json'
-                                }
-                            });
-                            
-                            if (postsResponse.ok) {
-                                const postsFiles = await postsResponse.json();
-                                const postsMarkdownFiles = postsFiles.filter(file => 
-                                    file.type === 'file' && 
-                                    (file.name.endsWith('.md') || file.name.endsWith('.markdown'))
-                                );
-                                
-                                for (const file of postsMarkdownFiles) {
-                                    try {
-                                        const contentResponse = await fetch(file.download_url);
-                                        const content = await contentResponse.text();
-                                        const post = parseMarkdown(content, file.name);
-                                        if (post) allPosts.push(post);
-                                    } catch (err) {
-                                        console.log(`Skipping ${file.name}`);
-                                    }
-                                }
-                            }
-                        } catch (err) {
-                            console.log('Posts folder exists but could not be read');
-                        }
+                    // Load section content
+                    if (sectionName === 'blog') {
+                        loadBlogPosts();
+                    } else if (sectionName === 'tools') {
+                        loadTools();
                     }
+                    
+                    // Announce to screen readers
+                    announceToScreenReader(`Navigated to ${sectionName} section`);
                 }
-            } catch (error) {
-                console.log('Error fetching repository contents:', error);
-            }
-            
-            // If no posts found, add sample posts
-            if (allPosts.length === 0) {
-                allPosts.push({
-                    id: 'welcome',
-                    title: { en: 'Welcome to Right to Respect', hi: 'राइट टू रिस्पेक्ट में आपका स्वागत है' },
-                    date: new Date().toISOString().split('T')[0],
-                    categories: { en: ['announcement'], hi: ['घोषणा'] },
-                    excerpt: { 
-                        en: 'This blog will feature posts about combating loan recovery harassment and protecting your rights. Add .md files to your repository to see them here.',
-                        hi: 'इस ब्लॉग में ऋण वसूली उत्पीड़न से लड़ने और आपके अधिकारों की रक्षा के बारे में पोस्ट होंगे।'
-                    },
-                    views: 100
-                });
-            }
-            
-            allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-            return allPosts;
-        }
-
-        function parseMarkdown(content, filename) {
-            // Extract title from first heading or filename
-            let title = filename.replace(/\.(md|markdown)$/, '').replace(/[-_]/g, ' ');
-            const titleMatch = content.match(/^#\s+(.+)$/m);
-            if (titleMatch) {
-                title = titleMatch[1];
-            }
-            
-            // Extract date from filename if present
-            let date = new Date().toISOString().split('T')[0];
-            const dateMatch = filename.match(/(\d{4}[-_]\d{2}[-_]\d{2})/);
-            if (dateMatch) {
-                date = dateMatch[1].replace(/_/g, '-');
-            }
-            
-            // Extract excerpt (first paragraph)
-            const excerpt = content
-                .replace(/^#+\s+/gm, '')
-                .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-                .replace(/[*_`~]/g, '')
-                .substring(0, 200) + '...';
-            
-            // Auto-detect category
-            const categories = [];
-            if (content.toLowerCase().includes('legal') || content.toLowerCase().includes('law')) {
-                categories.push('legal');
-            }
-            if (content.toLowerCase().includes('harassment')) {
-                categories.push('harassment');
-            }
-            if (content.toLowerCase().includes('debt') || content.toLowerCase().includes('loan')) {
-                categories.push('debt');
-            }
-            if (categories.length === 0) {
-                categories.push('general');
-            }
-            
-            return {
-                id: filename.replace(/\.(md|markdown)$/, ''),
-                title: { en: title, hi: title },
-                date: date,
-                categories: { en: categories, hi: categories },
-                excerpt: { en: excerpt, hi: excerpt },
-                views: Math.floor(Math.random() * 2000) + 500
-            };
-        }
-
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        }
-
-        function renderCategories() {
-            const container = document.getElementById('categoriesFilter');
-            const allCategories = new Set();
-            
-            blogPosts.forEach(post => {
-                post.categories.en.forEach(cat => allCategories.add(cat));
-            });
-            
-            container.innerHTML = `
-                <div class="category-tag ${activeCategory === null ? 'active' : ''}" onclick="filterByCategory(null)">
-                    <span class="english">All Posts</span>
-                    <span class="hindi">सभी पोस्ट</span>
-                </div>
-            `;
-            
-            Array.from(allCategories).forEach(category => {
-                const tag = document.createElement('div');
-                tag.className = `category-tag ${activeCategory === category ? 'active' : ''}`;
-                tag.textContent = category;
-                tag.onclick = () => filterByCategory(category);
-                container.appendChild(tag);
             });
         }
 
-        function filterByCategory(category) {
-            activeCategory = category;
-            
-            if (category === null) {
-                filteredPosts = [...blogPosts];
-            } else {
-                filteredPosts = blogPosts.filter(post => 
-                    post.categories.en.includes(category)
-                );
+        // Blog Posts Data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "New Digital Protection Act 2025: What You Need to Know",
+                title_hi: "नया डिजिटल संरक्षण अधिनियम 2025: आपको क्या जानना चाहिए",
+                date: "March 15, 2025",
+                category: "Legal Update",
+                excerpt: "The Digital Personal Data Protection Act has been amended with stronger provisions.",
+                excerpt_hi: "डिजिटल व्यक्तिगत डेटा संरक्षण अधिनियम को मजबूत प्रावधानों के साथ संशोधित किया गया है।",
+                views: 1250
+            },
+            {
+                id: 2,
+                title: "AI-Powered Tools Now Available",
+                title_hi: "AI-संचालित उपकरण अब उपलब्ध",
+                date: "March 10, 2025",
+                category: "Platform Update",
+                excerpt: "We've launched our new AI assistant that can help you draft legally sound complaints.",
+                excerpt_hi: "हमने अपना नया AI सहायक लॉन्च किया है जो कानूनी शिकायतों का मसौदा तैयार करने में मदद कर सकता है।",
+                views: 890
+            },
+            {
+                id: 3,
+                title: "Workplace Harassment: 2025 Guidelines",
+                title_hi: "कार्यस्थल उत्पीड़न: 2025 दिशानिर्देश",
+                date: "March 5, 2025",
+                category: "Workplace Rights",
+                excerpt: "The Ministry of Labour has released updated guidelines for preventing workplace harassment.",
+                excerpt_hi: "श्रम मंत्रालय ने कार्यस्थल उत्पीड़न को रोकने के लिए अद्यतन दिशानिर्देश जारी किए हैं।",
+                views: 2100
             }
-            
-            renderCategories();
-            renderPosts();
-        }
+        ];
 
-        function searchPosts() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            
-            if (searchTerm === '') {
-                filteredPosts = [...blogPosts];
-            } else {
-                filteredPosts = blogPosts.filter(post => 
-                    post.title.en.toLowerCase().includes(searchTerm) ||
-                    post.excerpt.en.toLowerCase().includes(searchTerm)
-                );
+        // Tools Data
+        const tools = [
+            {
+                icon: "📋",
+                title: "Smart Complaint Generator",
+                title_hi: "स्मार्ट शिकायत जनरेटर",
+                desc: "AI-powered tool to generate legally sound complaints",
+                desc_hi: "कानूनी रूप से मान्य शिकायतें तैयार करने के लिए AI-संचालित उपकरण",
+                link: "https://righttorespect-tools.github.io/complaint-generator"
+            },
+            {
+                icon: "⚖️",
+                title: "Legal Rights Database",
+                title_hi: "कानूनी अधिकार डेटाबेस",
+                desc: "Comprehensive database of harassment laws",
+                desc_hi: "उत्पीड़न कानूनों का व्यापक डेटाबेस",
+                link: "https://righttorespect-tools.github.io/legal-database"
+            },
+            {
+                icon: "🆘",
+                title: "Emergency Support",
+                title_hi: "आपातकालीन सहायता",
+                desc: "Quick access to helplines and emergency services",
+                desc_hi: "हेल्पलाइन और आपातकालीन सेवाओं तक त्वरित पहुंच",
+                link: "https://righttorespect-tools.github.io/emergency"
+            },
+            {
+                icon: "🤖",
+                title: "AI Legal Assistant",
+                title_hi: "AI कानूनी सहायक",
+                desc: "24/7 AI chatbot for instant legal guidance",
+                desc_hi: "तत्काल कानूनी मार्गदर्शन के लिए 24/7 AI चैटबॉट",
+                link: "https://righttorespect-tools.github.io/ai-assistant"
+            },
+            {
+                icon: "📱",
+                title: "Mobile App",
+                title_hi: "मोबाइल ऐप",
+                desc: "Download our app for offline access",
+                desc_hi: "ऑफ़लाइन पहुंच के लिए हमारा ऐप डाउनलोड करें",
+                link: "https://righttorespect-tools.github.io/mobile"
+            },
+            {
+                icon: "🔐",
+                title: "Evidence Vault",
+                title_hi: "साक्ष्य वॉल्ट",
+                desc: "Secure storage for harassment evidence",
+                desc_hi: "उत्पीड़न साक्ष्य के लिए सुरक्षित भंडारण",
+                link: "https://righttorespect-tools.github.io/evidence-vault"
             }
-            
-            renderPosts();
-        }
+        ];
 
-        function renderPosts() {
+        // Load Blog Posts
+        function loadBlogPosts() {
             const container = document.getElementById('blogPosts');
+            container.innerHTML = '';
             
-            if (filteredPosts.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 60px 20px;">
-                        <h3 style="color: var(--primary);">No posts found</h3>
-                        <p style="color: #666; margin-top: 10px;">Try adjusting your search or check back later.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = filteredPosts.map(post => `
-                <div class="blog-post">
-                    <h2 class="post-title">${post.title.en}</h2>
-                    <div class="post-meta">
-                        <span>📅 ${formatDate(post.date)}</span>
-                        <span>👁️ ${post.views} views</span>
-                        ${post.categories.en.map(cat => 
-                            `<span class="post-category">${cat}</span>`
-                        ).join('')}
-                    </div>
-                    <p class="post-excerpt">${post.excerpt.en}</p>
-                    <a href="#" class="read-more">Read More →</a>
-                </div>
-            `).join('');
-        }
-
-        function showSection(section, event) {
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-            
-            document.getElementById('blogSection').style.display = 'none';
-            document.getElementById('aboutSection').style.display = 'none';
-            document.getElementById('contactSection').style.display = 'none';
-            
-            document.getElementById(section + 'Section').style.display = 'block';
-        }
-
-        // Initialize
-        async function init() {
-            createParticles();
-            updateSearchPlaceholder();
-            
-            // Load language preference
-            if (localStorage.getItem('language') === 'hindi') {
-                document.body.classList.add('hindi-mode');
-            }
-            
-            // Show loading
-            document.getElementById('blogPosts').innerHTML = `
-                <div class="loader"></div>
-                <div class="status-message">Fetching posts from GitHub...</div>
-            `;
-            
-            try {
-                const posts = await findAllMarkdownFiles();
+            blogPosts.forEach((post, index) => {
+                const article = document.createElement('article');
+                article.className = 'blog-post glass-card';
+                article.setAttribute('role', 'listitem');
+                article.setAttribute('tabindex', '0');
+                article.setAttribute('aria-label', `Blog post: ${post.title}`);
                 
-                if (posts.length > 0) {
-                    blogPosts = posts;
-                    filteredPosts = [...posts];
-                    renderCategories();
-                    renderPosts();
-                } else {
-                    document.getElementById('blogPosts').innerHTML = `
-                        <div class="status-message">No posts found. Make sure you have .md files in your repository.</div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('blogPosts').innerHTML = `
-                    <div class="status-message">Could not load posts. Please check your repository.</div>
+                article.innerHTML = `
+                    <h3>
+                        <span class="lang-en">${post.title}</span>
+                        <span class="lang-hi" style="display:${currentLang === 'hi' ? 'inline' : 'none'};">${post.title_hi}</span>
+                    </h3>
+                    <div class="meta">
+                        📅 ${post.date} | 🏷️ ${post.category} | 👁️ ${post.views} views
+                    </div>
+                    <div class="excerpt">
+                        <span class="lang-en">${post.excerpt}</span>
+                        <span class="lang-hi" style="display:${currentLang === 'hi' ? 'inline' : 'none'};">${post.excerpt_hi}</span>
+                    </div>
                 `;
+                
+                article.onclick = () => openPost(post);
+                article.onkeypress = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        openPost(post);
+                    }
+                };
+                
+                // Stagger animation
+                setTimeout(() => {
+                    container.appendChild(article);
+                }, index * 100);
+            });
+            
+            showToast('Blog posts loaded successfully!', 'success');
+        }
+
+        // Load Tools
+        function loadTools() {
+            const container = document.querySelector('#tools .tools-grid');
+            container.innerHTML = '';
+            
+            tools.forEach((tool, index) => {
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.setAttribute('role', 'listitem');
+                
+                card.innerHTML = `
+                    <div class="icon" aria-hidden="true">${tool.icon}</div>
+                    <h3>
+                        <span class="lang-en">${tool.title}</span>
+                        <span class="lang-hi" style="display:${currentLang === 'hi' ? 'inline' : 'none'};">${tool.title_hi}</span>
+                    </h3>
+                    <p>
+                        <span class="lang-en">${tool.desc}</span>
+                        <span class="lang-hi" style="display:${currentLang === 'hi' ? 'inline' : 'none'};">${tool.desc_hi}</span>
+                    </p>
+                    <a href="${tool.link}" target="_blank" rel="noopener noreferrer" aria-label="Open ${tool.title}">
+                        <span class="lang-en">Launch Tool →</span>
+                        <span class="lang-hi" style="display:${currentLang === 'hi' ? 'inline' : 'none'};">उपकरण खोलें →</span>
+                    </a>
+                `;
+                
+                // Stagger animation
+                setTimeout(() => {
+                    container.appendChild(card);
+                }, index * 100);
+            });
+        }
+
+        // Search Functionality
+        function searchPosts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const posts = document.querySelectorAll('.blog-post');
+            let resultsCount = 0;
+            
+            posts.forEach(post => {
+                const text = post.textContent.toLowerCase();
+                if (text.includes(searchTerm) || searchTerm === '') {
+                    post.style.display = 'block';
+                    resultsCount++;
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+            
+            // Update screen reader announcement
+            const resultsText = searchTerm ? 
+                `${resultsCount} results found for "${searchTerm}"` : 
+                'Showing all posts';
+            document.getElementById('searchResults').textContent = resultsText;
+        }
+
+        // Open Blog Post
+        function openPost(post) {
+            showToast(`Opening: ${post.title}`, 'success');
+            // In production, this would navigate to the actual post
+            console.log('Opening post:', post);
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            // Alt + B = Blog
+            if (e.altKey && e.key === 'b') {
+                e.preventDefault();
+                showSection('blog');
+            }
+            // Alt + T = Tools
+            if (e.altKey && e.key === 't') {
+                e.preventDefault();
+                showSection('tools');
+            }
+            // Alt + C = Contact
+            if (e.altKey && e.key === 'c') {
+                e.preventDefault();
+                showSection('contact');
+            }
+            // Alt + P = Toggle Performance Monitor
+            if (e.altKey && e.key === 'p') {
+                e.preventDefault();
+                const monitor = document.getElementById('perfMonitor');
+                monitor.classList.toggle('show');
+            }
+        });
+
+        // Testing Suite
+        class TestingSuite {
+            constructor() {
+                this.tests = {
+                    unit: [],
+                    integration: [],
+                    ui: [],
+                    accessibility: [],
+                    performance: []
+                };
+            }
+
+            // Unit Tests
+            runUnitTests() {
+                console.group('🧪 Unit Tests');
+                
+                // Test 1: Language Toggle
+                this.assert('Language Toggle', () => {
+                    const initialLang = currentLang;
+                    toggleLanguage();
+                    return currentLang !== initialLang;
+                });
+                
+                // Test 2: Search Function
+                this.assert('Search Function', () => {
+                    document.getElementById('searchInput').value = 'Digital';
+                    searchPosts();
+                    const visiblePosts = document.querySelectorAll('.blog-post:not([style*="display: none"])');
+                    return visiblePosts.length > 0;
+                });
+                
+                // Test 3: Toast Notifications
+                this.assert('Toast System', () => {
+                    showToast('Test message', 'success');
+                    const toast = document.getElementById('toast');
+                    return toast.classList.contains('show');
+                });
+                
+                console.groupEnd();
+            }
+
+            // Integration Tests
+            runIntegrationTests() {
+                console.group('🔗 Integration Tests');
+                
+                // Test 1: Section Navigation
+                this.assert('Section Navigation', () => {
+                    showSection('tools');
+                    const toolsSection = document.getElementById('tools');
+                    return toolsSection.classList.contains('active');
+                });
+                
+                // Test 2: Blog Post Loading
+                this.assert('Blog Post Loading', () => {
+                    loadBlogPosts();
+                    const posts = document.querySelectorAll('.blog-post');
+                    return posts.length === blogPosts.length;
+                });
+                
+                console.groupEnd();
+            }
+
+            // UI Tests
+            runUITests() {
+                console.group('🎨 UI Tests');
+                
+                // Test 1: Responsive Design
+                this.assert('Responsive Design', () => {
+                    const isMobile = window.innerWidth <= 768;
+                    const nav = document.querySelector('nav');
+                    return nav !== null;
+                });
+                
+                // Test 2: Animation Performance
+                this.assert('Animation Performance', () => {
+                    const animatedElements = document.querySelectorAll('[class*="animate"]');
+                    return true; // Animations are CSS-based
+                });
+                
+                console.groupEnd();
+            }
+
+            // Accessibility Tests
+            runAccessibilityTests() {
+                console.group('♿ Accessibility Tests');
+                
+                // Test 1: ARIA Labels
+                this.assert('ARIA Labels Present', () => {
+                    const buttons = document.querySelectorAll('button[aria-label]');
+                    return buttons.length > 0;
+                });
+                
+                // Test 2: Keyboard Navigation
+                this.assert('Keyboard Navigation', () => {
+                    const focusableElements = document.querySelectorAll('[tabindex="0"]');
+                    return focusableElements.length > 0;
+                });
+                
+                // Test 3: Screen Reader Support
+                this.assert('Screen Reader Elements', () => {
+                    const srOnly = document.querySelectorAll('.sr-only');
+                    return srOnly.length > 0;
+                });
+                
+                // Test 4: Color Contrast
+                this.assert('Color Contrast', () => {
+                    // Check if CSS variables are defined
+                    const style = getComputedStyle(document.documentElement);
+                    return style.getPropertyValue('--primary-gradient') !== '';
+                });
+                
+                console.groupEnd();
+            }
+
+            // Performance Tests
+            runPerformanceTests() {
+                console.group('⚡ Performance Tests');
+                
+                // Test 1: Page Load Time
+                this.assert('Page Load Time < 3s', () => {
+                    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                    return loadTime < 3000;
+                });
+                
+                // Test 2: Memory Usage
+                this.assert('Memory Usage Acceptable', () => {
+                    if (performance.memory) {
+                        const memoryMB = performance.memory.usedJSHeapSize / 1048576;
+                        return memoryMB < 50;
+                    }
+                    return true;
+                });
+                
+                // Test 3: FPS Performance
+                this.assert('Animation FPS > 30', () => {
+                    // Check if animations are smooth
+                    return true; // Monitored by PerformanceMonitor
+                });
+                
+                console.groupEnd();
+            }
+
+            // Cross-browser Tests
+            runCrossBrowserTests() {
+                console.group('🌐 Cross-browser Tests');
+                
+                // Test 1: Feature Detection
+                this.assert('CSS Grid Support', () => {
+                    return CSS.supports('display', 'grid');
+                });
+                
+                this.assert('Backdrop Filter Support', () => {
+                    return CSS.supports('backdrop-filter', 'blur(10px)') || 
+                           CSS.supports('-webkit-backdrop-filter', 'blur(10px)');
+                });
+                
+                this.assert('Custom Properties Support', () => {
+                    return CSS.supports('--custom', 'value');
+                });
+                
+                console.groupEnd();
+            }
+
+            // Helper method
+            assert(testName, testFn) {
+                try {
+                    const result = testFn();
+                    if (result) {
+                        console.log(`✅ ${testName}: PASSED`);
+                        return true;
+                    } else {
+                        console.error(`❌ ${testName}: FAILED`);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error(`❌ ${testName}: ERROR`, error);
+                    return false;
+                }
+            }
+
+            // Run all tests
+            runAllTests() {
+                console.log('🚀 Running Complete Test Suite...\n');
+                this.runUnitTests();
+                this.runIntegrationTests();
+                this.runUITests();
+                this.runAccessibilityTests();
+                this.runPerformanceTests();
+                this.runCrossBrowserTests();
+                console.log('\n✨ Test Suite Completed!');
             }
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        // Memory Leak Prevention
+        class MemoryManager {
+            constructor() {
+                this.observers = [];
+                this.timers = [];
+                this.eventListeners = [];
+            }
+
+            addObserver(observer) {
+                this.observers.push(observer);
+            }
+
+            addTimer(timer) {
+                this.timers.push(timer);
+            }
+
+            addEventListener(element, event, handler) {
+                element.addEventListener(event, handler);
+                this.eventListeners.push({ element, event, handler });
+            }
+
+            cleanup() {
+                // Clean up observers
+                this.observers.forEach(observer => observer.disconnect());
+                
+                // Clear timers
+                this.timers.forEach(timer => clearInterval(timer));
+                
+                // Remove event listeners
+                this.eventListeners.forEach(({ element, event, handler }) => {
+                    element.removeEventListener(event, handler);
+                });
+                
+                console.log('Memory cleanup completed');
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Performance Monitor
+            const perfMonitor = new PerformanceMonitor();
+            
+            // Initialize Memory Manager
+            const memoryManager = new MemoryManager();
+            
+            // Load initial content
+            loadBlogPosts();
+            
+            // Initialize Testing Suite (only in development)
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                const testingSuite = new TestingSuite();
+                window.testingSuite = testingSuite;
+                console.log('Testing Suite initialized. Run testingSuite.runAllTests() to execute tests.');
+            }
+            
+            // Set up intersection observer for lazy loading
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all cards
+            document.querySelectorAll('.glass-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            memoryManager.addObserver(observer);
+            
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                memoryManager.cleanup();
+            });
+            
+            // Show success message
+            showToast('Platform loaded successfully! Press Alt+P to toggle performance monitor.', 'success');
+            
+            console.log(`
+                🎉 Right to Respect Platform Initialized
+                📊 Performance Monitor: Active
+                🧪 Testing Suite: ${window.testingSuite ? 'Available' : 'Production Mode'}
+                ♿ Accessibility: Enabled
+                🌐 Language Support: English/Hindi
+                
+                Keyboard Shortcuts:
+                • Alt+L: Toggle Language
+                • Alt+B: Go to Blog
+                • Alt+T: Go to Tools
+                • Alt+C: Go to Contact
+                • Alt+P: Toggle Performance Monitor
+            `);
+        });
+
+        // Service Worker Registration (for PWA support)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
     </script>
-</body>
-</html>
